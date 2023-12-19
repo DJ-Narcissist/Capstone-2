@@ -1,9 +1,3 @@
-CREATE TABLE bookings (
-    BookingID INTEGER PRIMARY KEY,
-    Booking_Date DATE,
-    Description TEXT,
-    Location VARCHAR(100) NOT NULL,
-);
 
 CREATE TABLE users(
     UserID TEXT PRIMARY KEY,
@@ -19,13 +13,21 @@ CREATE TABLE events(
     Location VARCHAR(100)
 );
 
-CREATE TABLE soundcloud (
-    Soundcloud_URL URL,
+CREATE TABLE bookings (
+    BookingID INTEGER PRIMARY KEY,
+    EventID INTEGER
+    Booking_Date DATE,
+    Description TEXT,
+    Location VARCHAR(100) NOT NULL,
+    FOREIGN KEY (EventID) REFERENCES events (EventID),
+);
+CREATE TABLE mixes (
     TrackID INTEGER PRIMARY KEY,
     Title VARCHAR(100),
     PlaylistID INTEGER,
     Playlist_Title VARCHAR(100),
-    Release_Date DATE
+    Release_Date DATE,
+    Genre TEXT
 );
 
 CREATE TABLE SocialPosts (
@@ -40,7 +42,7 @@ CREATE TABLE SocialPosts (
 CREATE TABLE Images (
     ImageID INTEGER PRIMARY KEY,
     UserID INTEGER,
-    Image_URL URL,
+    Image_URL TEXT,
     Description TEXT,
     UploadDate DATE
 );
@@ -57,5 +59,17 @@ CREATE TABLE Merchandise (
 );
 
 CREATE TABLE Orders (
-    
-)
+    OrderID INTEGER PRIMARY KEY,
+    MerchID INTEGER,
+    FOREIGN KEY (MerchID) REFERENCES Merchandise (MerchID)
+);
+
+CREATE TABLE ContactMessages (
+    MessageID INTEGER PRIMARY KEY,
+    Name VARCHAR(100),
+    UserID INTEGER,
+
+
+    FOREIGN KEY (UserID) REFERENCES users (UserID)
+
+);
